@@ -146,9 +146,9 @@ $(document).ready(function() {
 	}
 
 	function loadLesson(val){
-		// $quiz.hide()
+		$quiz.hide()
 		currentItem = val
-		// player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
+		player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
 		$('.main h2').text(currentItem)
 		generateTest()
 	}
@@ -156,12 +156,10 @@ $(document).ready(function() {
 
 	function generateDom(){
 		generateMenu()
-		loadLesson(currentItem)
 	}
 
 	generateDom()
-// $('#h').click(function(){
-	// })
+
 	// listeners
 	$('.finish').click(function(e){
 		e.preventDefault()
