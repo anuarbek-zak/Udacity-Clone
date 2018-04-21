@@ -147,7 +147,7 @@ $(document).ready(function() {
 	function loadLesson(val){
 		$quiz.hide()
 		currentItem = val
-		player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
+		// player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
 		$('.main h2').text(currentItem)
 		generateTest()
 	}
