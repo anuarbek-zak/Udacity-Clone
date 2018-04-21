@@ -75,27 +75,27 @@ currentItem,
 doneLessons = [],
 currentIndex = 0
 
-function onYouTubeIframeAPIReady() {
-	player = new YT.Player('player', {
-		height: '600',
-		width:'100%',
-		videoId: menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1],
-		events: {
-			'onReady': onPlayerReady,
-			'onStateChange': onPlayerStateChange
-		}
-	});
-}
+// function onYouTubeIframeAPIReady() {
+// 	player = new YT.Player('player', {
+// 		height: '600',
+// 		width:'100%',
+// 		videoId: menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1],
+// 		events: {
+// 			'onReady': onPlayerReady,
+// 			'onStateChange': onPlayerStateChange
+// 		}
+// 	});
+// }
 
-function onPlayerReady(event) {
-	event.target.playVideo();
-}
+// function onPlayerReady(event) {
+// 	event.target.playVideo();
+// }
 
-function onPlayerStateChange(event) {        
-	if(event.data === 0) {            
-		$('.quiz').fadeIn(1500)
-	}
-}
+// function onPlayerStateChange(event) {        
+// 	if(event.data === 0) {            
+// 		$('.quiz').fadeIn(1500)
+// 	}
+// }
 
 $(document).ready(function() {	
 	$lessons = $('.lessons')
@@ -145,7 +145,7 @@ $(document).ready(function() {
 	}
 
 	function loadLesson(val){
-		$quiz.hide()
+		// $quiz.hide()
 		currentItem = val
 		// player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
 		$('.main h2').text(currentItem)
@@ -155,6 +155,7 @@ $(document).ready(function() {
 
 	function generateDom(){
 		generateMenu()
+		loadLesson(currentItem)
 	}
 
 	generateDom()
