@@ -75,27 +75,28 @@ currentItem,
 doneLessons = [],
 currentIndex = 0
 
-// function onYouTubeIframeAPIReady() {
-// 	player = new YT.Player('player', {
-// 		height: '600',
-// 		width:'100%',
-// 		videoId: menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1],
-// 		events: {
-// 			'onReady': onPlayerReady,
-// 			'onStateChange': onPlayerStateChange
-// 		}
-// 	});
-// }
+function onYouTubeIframeAPIReady() {
+		console.log(menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1])
+	player = new YT.Player('player', {
+		height: '600',
+		width:'100%',
+		videoId: menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1],
+		events: {
+			'onReady': onPlayerReady,
+			'onStateChange': onPlayerStateChange
+		}
+	});
+}
 
-// function onPlayerReady(event) {
-// 	event.target.playVideo();
-// }
+function onPlayerReady(event) {
+	event.target.playVideo();
+}
 
-// function onPlayerStateChange(event) {        
-// 	if(event.data === 0) {            
-// 		$('.quiz').fadeIn(1500)
-// 	}
-// }
+function onPlayerStateChange(event) {        
+	if(event.data === 0) {            
+		$('.quiz').fadeIn(1500)
+	}
+}
 
 $(document).ready(function() {	
 	$lessons = $('.lessons')
