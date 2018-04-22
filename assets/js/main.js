@@ -195,7 +195,17 @@ $(document).ready(function() {
 	}
 
 	function loadLesson(index,loadVideo){
+		if(index==menuItemsNames.length){
+			$modal.find('h3').text('Поздравляем, Курс Пройден!')
+			$modal.find('.answer').html('Дорогой будущий инвестор! Спасибо за прохождение нашего онлайн курса по основам инвестирования, надеемся наши уроки помогли вам сделать первый шаг в этом направлении. Желаем удачи! <br><br> <b>Скачайте одно из наших приложений</b>')
+			$modal.find('.again-next').hide()
+			$modal.find('.apps').show()
+			return
+		}
 		$quiz.hide()
+		$modal.hide()
+		$modal.find('.again-next').show()
+		$modal.find('.apps').hide()
 		currentIndex = index
 		localStorage.setItem('currentIndex',currentIndex)
 		if(loadVideo) player.loadVideoById(menuItems[menuItemsNames[currentIndex]].link.split('?v=')[1])
@@ -209,16 +219,25 @@ $(document).ready(function() {
 	// listeners
 	$('.finish').click(function(e){
 		e.preventDefault()
-		var correctAnswrs = 0;
+		var correctAnswrs = 0,
+		questionsCount = menuItems[menuItemsNames[currentIndex]].quiz.length;
 		$('.question').each(function(i){
 			if(menuItems[menuItemsNames[currentIndex]].quiz[i].answer == $(this).find('input[type="radio"]:checked').val()) correctAnswrs++
 		})
 		$modal.show()
-		loadLesson(currentIndex,true)
+		$modal.find('.answer').html(`Ваш результат : <b> ${correctAnswrs} </b> правильных из <b> ${ questionsCount } </b>`)
 	})
 
 	$modal.find('.close').click(function(){
 		$modal.hide()
+	})
+
+	$modal.find('.again').click(function(){
+		loadLesson(currentIndex,true)
+	})
+
+	$modal.find('.next').click(function(){
+		loadLesson(++currentIndex,true)
 	})
 
 	$lessons.find('li').click(function(){
