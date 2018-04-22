@@ -35,6 +35,41 @@ menuItems = {
 		},
 		]
 	},
+	"Введение в JS":{
+		link:'https://www.youtube.com/watch?v=61mqENQgbV8',
+		quiz:[
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		{
+			question:"Что такое СSS?",
+			answer:"Каскадные таблицы стилей",
+			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
+		},
+		]
+	},
 	"Основы в HTML":{
 		link:'https://www.youtube.com/watch?v=DKEyMu3lHqE',
 		quiz:[
@@ -70,14 +105,14 @@ menuItems = {
 		},
 		]
 	},
+
 },
-currentItem,
-doneLessons = [],
-currentIndex = 0,
+doneLessons = localStorage.getItem('doneLessons')?JSON.parse(localStorage.getItem('doneLessons')):[],
+currentIndex = localStorage.getItem('currentIndex')?localStorage.getItem('currentIndex'):0,
 menuItemsNames = Object.keys(menuItems),
 $lessons = $('.lessons'),
-$quiz = $('.quiz')
-
+$quiz = $('.quiz'),
+$modal = $('#myModal')
 
 function onYouTubeIframeAPIReady() {
 	player = new YT.Player('player', {
@@ -98,11 +133,21 @@ function onPlayerReady(event) {
 function onPlayerStateChange(event) {        
 	if(event.data === 0) {            
 		$quiz.fadeIn(1500)
-		$lessons.find('li').eq(currentIndex).find('.fa').removeClass('fa-circle').addClass('fa-check')
+		doneLessons.push(+currentIndex)
+		changeLessonToChecked()
+		localStorage.setItem('doneLessons',JSON.stringify(doneLessons))
 		$('html, body').animate({
 			scrollTop: $(".quiz").offset().top
 		}, 1000)
 	}
+}
+
+function changeLessonToChecked(){
+	doneLessons.forEach(function(y,j){
+		$lessons.find('li').each(function(x,i){
+			if(x==+y)	$(this).find('.fa').removeClass('fa-circle').addClass('fa-check')
+		})
+	})
 }
 
 
@@ -119,21 +164,20 @@ $(document).ready(function() {
 	function generateMenu(){
 		var index = 0
 		for(item in menuItems){
-			if(index==currentIndex) currentItem = item
-				$lessons.append(`<li>
-					<i class="fa fa-circle"></i>
-					<span class="digit">${++index}.</span>
-					<span class="title">${item}</span>
-					</li>`)
+			$lessons.append(`<li>
+				<i class="fa fa-circle"></i>
+				<span class="digit">${++index}.</span>
+				<span class="title">${item}</span>
+				</li>`)
 		}
-		loadLesson(currentItem,0,false)
+		changeLessonToChecked()
+		loadLesson(currentIndex,false)
 	}
 
-	generateMenu()
 
 	function generateTest(){
 		$questions = $('.questions').empty()
-		menuItems[currentItem].quiz.forEach(function(x,i){
+		menuItems[menuItemsNames[currentIndex]].quiz.forEach(function(x,i){
 			$question = $(`<div class="question">
 				<h4>${x.question}</h4>
 				</div>`).appendTo($questions)
@@ -150,33 +194,35 @@ $(document).ready(function() {
 		})
 	}
 
-	function loadLesson(name,index,loadVideo){
+	function loadLesson(index,loadVideo){
 		$quiz.hide()
-		currentItem = name
 		currentIndex = index
-		localStorage.setItem('currentItem',currentItem)
 		localStorage.setItem('currentIndex',currentIndex)
-		if(loadVideo) player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
-		$('.main h2').text(currentItem)
+		if(loadVideo) player.loadVideoById(menuItems[menuItemsNames[currentIndex]].link.split('?v=')[1])
+			$('.main h2').text(menuItemsNames[currentIndex])
 		generateTest()
 		$lessons.find('li').removeClass('active')
 		$lessons.find('li').eq(currentIndex).addClass('active')
 	}
+	generateMenu()
 
 	// listeners
 	$('.finish').click(function(e){
 		e.preventDefault()
 		var correctAnswrs = 0;
 		$('.question').each(function(i){
-			if(menuItems[currentItem].quiz[i].answer == $(this).find('input[type="radio"]:checked').val()) correctAnswrs++
+			if(menuItems[menuItemsNames[currentIndex]].quiz[i].answer == $(this).find('input[type="radio"]:checked').val()) correctAnswrs++
 		})
-		doneLessons.push(currentItem)
-		$('#myModal').show()
-		loadLesson(menuItemsNames[++currentIndex],currentIndex,true)
+		$modal.show()
+		loadLesson(currentIndex,true)
+	})
+
+	$modal.find('.close').click(function(){
+		$modal.hide()
 	})
 
 	$lessons.find('li').click(function(){
-		loadLesson($(this).find('.title').text(),$(this).index(),true)		
+		loadLesson($(this).index(),true)		
 	})
 	// listeners end
 
