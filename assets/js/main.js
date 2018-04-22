@@ -73,14 +73,17 @@ menuItems = {
 },
 currentItem,
 doneLessons = [],
-currentIndex = 0
+currentIndex = 0,
+menuItemsNames = Object.keys(menuItems),
+$lessons = $('.lessons'),
+$quiz = $('.quiz')
+
 
 function onYouTubeIframeAPIReady() {
-		console.log(menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1])
 	player = new YT.Player('player', {
 		height: '600',
 		width:'100%',
-		videoId: menuItems[Object.keys(menuItems)[currentIndex]].link.split('?v=')[1],
+		videoId: menuItems[menuItemsNames[currentIndex]].link.split('?v=')[1],
 		events: {
 			'onReady': onPlayerReady,
 			'onStateChange': onPlayerStateChange
@@ -94,14 +97,16 @@ function onPlayerReady(event) {
 
 function onPlayerStateChange(event) {        
 	if(event.data === 0) {            
-		$('.quiz').fadeIn(1500)
+		$quiz.fadeIn(1500)
+		$lessons.find('li').eq(currentIndex).find('.fa').removeClass('fa-circle').addClass('fa-check')
+		$('html, body').animate({
+			scrollTop: $(".quiz").offset().top
+		}, 1000)
 	}
 }
 
-$(document).ready(function() {	
-	$lessons = $('.lessons')
-	$quiz = $('.quiz')
 
+$(document).ready(function() {	
 	function shuffleArray(array) {
 		for (var i = array.length - 1; i > 0; i--) {
 			var j = Math.floor(Math.random() * (i + 1));
@@ -114,17 +119,17 @@ $(document).ready(function() {
 	function generateMenu(){
 		var index = 0
 		for(item in menuItems){
-			if(index==currentIndex) {
-				currentItem = item
-				$('.main h2').text(currentItem)
-			}
-			$lessons.append(`<li>
-				<i class="fa fa-circle"></i>
-				<span class="digit">${++index}.</span>
-				<span class="title">${item}</span>
-				</li>`)
+			if(index==currentIndex) currentItem = item
+				$lessons.append(`<li>
+					<i class="fa fa-circle"></i>
+					<span class="digit">${++index}.</span>
+					<span class="title">${item}</span>
+					</li>`)
 		}
+		loadLesson(currentItem,0,false)
 	}
+
+	generateMenu()
 
 	function generateTest(){
 		$questions = $('.questions').empty()
@@ -145,20 +150,18 @@ $(document).ready(function() {
 		})
 	}
 
-	function loadLesson(val){
+	function loadLesson(name,index,loadVideo){
 		$quiz.hide()
-		currentItem = val
-		player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
+		currentItem = name
+		currentIndex = index
+		localStorage.setItem('currentItem',currentItem)
+		localStorage.setItem('currentIndex',currentIndex)
+		if(loadVideo) player.loadVideoById(menuItems[currentItem].link.split('?v=')[1])
 		$('.main h2').text(currentItem)
 		generateTest()
+		$lessons.find('li').removeClass('active')
+		$lessons.find('li').eq(currentIndex).addClass('active')
 	}
-
-
-	function generateDom(){
-		generateMenu()
-	}
-
-	generateDom()
 
 	// listeners
 	$('.finish').click(function(e){
@@ -168,12 +171,12 @@ $(document).ready(function() {
 			if(menuItems[currentItem].quiz[i].answer == $(this).find('input[type="radio"]:checked').val()) correctAnswrs++
 		})
 		doneLessons.push(currentItem)
-		$lessons.find('li').eq(currentIndex).find('.fa').removeClass('fa-circle').addClass('fa-check')
-		currentIndex++
+		$('#myModal').show()
+		loadLesson(menuItemsNames[++currentIndex],currentIndex,true)
 	})
 
 	$lessons.find('li').click(function(){
-		loadLesson($(this).find('.title').text())		
+		loadLesson($(this).find('.title').text(),$(this).index(),true)		
 	})
 	// listeners end
 
