@@ -243,6 +243,10 @@ $(document).ready(function() {
 	$lessons.find('li').click(function(){
 		loadLesson($(this).index(),true)		
 	})
+
+	$('.arrow').click(function(){
+		$('.sidebar').width(0)
+	})
 	// listeners end
 
 })
