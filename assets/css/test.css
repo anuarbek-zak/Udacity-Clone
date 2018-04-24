@@ -3,21 +3,22 @@ body{
 }
 
 .btn{
-	background-color: #02ccba;
+	background-color: #f60000;
 	color: #fff;
 	font-size: 15px;
 	transition: 0.4s;
 	text-decoration: none;
 	display: inline-block;
 	border: none;
-	padding: 10px 15px;
+	padding: 15px 20px;
 	border-radius: 3px;
 	cursor: pointer;
-	outline: none
+	outline: none;
+	font-weight: bold;
 }
 
 .btn:hover{
-	background-color: #03b7a7;
+	background-color: #d00303;
 }
 /*--------------- RADIO --------------------------*/
 [type="radio"]:checked,
@@ -52,7 +53,7 @@ body{
 	content: '';
 	width: 12px;
 	height: 12px;
-	background: #02ccba;
+	background: #f60000;
 	position: absolute;
 	top: 3px;
 	left: 3px;
@@ -77,13 +78,15 @@ body{
 }
 .sidebar{
 	width: 20%;
-	background-color: #2e3d49;
+	background-color: #009bdf;
 	color: #fff;
+		z-index: 1;
+
 }
 
 .main{
 	width: 80%;
-	background-color: #1c262f;
+	background-color: #fbfbfb;
 }
 
 .quiz{
@@ -92,7 +95,7 @@ body{
 
 .arrow{
 	padding:15px;
-	border-bottom: 1px solid #1c262f;
+	border-bottom: 1px solid #fff;
 	padding-bottom: 20px;
 	height: 50px;
 }
@@ -107,19 +110,24 @@ body{
 }
 
 .lessons{
-	padding:  15px
+	padding:  15px;
+	height: 100%;
+	box-shadow: 2px 5px 20px 2px #999;
 }
 
 .lessons li{
-	color: #979ea4;
+	color: #fff;
 	margin: 20px 0;
 	cursor: pointer;
 
 }
 
-.lessons li:hover,
+.lessons li:hover{
+	text-decoration: underline;
+}
+
 .lessons li.active{
-	color: #fff;
+	font-weight: bold;
 }
 
 .lessons li .fa{
@@ -127,19 +135,19 @@ body{
 	margin-right: 15px;
 }
 .lessons li .fa-check{
-	color: #02ccba;
+	color: #fff;
 	font-size: 13px;
 }
 
 .main h2{
-	height: 50px;
+	height: 49px;
 	color: #fff;
+	background-color: #009ce0;
 	text-align: center;
 	width: 100%;
 	padding: 20px;
 	font-weight: bold;
 	font-size: 17px;
-	box-shadow: 4px 2px 4px 0px rgba(0,0,0,.5)
 }
 
 .main .quiz{
@@ -148,6 +156,9 @@ body{
 	margin: 0 25px;
 	margin-bottom: 50px;
 	padding: 50px;
+	display: none;
+	box-shadow: 7px -4px 30px -10px #999;
+
 }
 
 .main .quiz h3{
@@ -245,7 +256,7 @@ body{
 }
 
 .modal-body .btns button{
-	width: 40%;
+	width: 47%;
 }
 
 
