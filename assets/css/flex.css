@@ -38,6 +38,14 @@
   justify-content: space-around;
 }
 
+.jc-fe{
+  justify-content: flex-end;
+}
+
+.jc-fs{
+  justify-content: flex-start
+}
+
 .ai-fe{
   -ms-align-items: flex-end;
   align-items: flex-end;
