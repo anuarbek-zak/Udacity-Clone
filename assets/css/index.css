@@ -4,6 +4,7 @@
 	}
 	body{
 		font-size: 18px;
+				font-family: 'ProximaNova-Bold';
 
 	}
 	.bg{
@@ -27,7 +28,7 @@
 	header a{
 		text-decoration: none;
 		color: blue;
-		margin-right: 35px;
+		margin-right: 30px;
 		color: #0063f0;
 		font-size: 20px;
 	}
@@ -44,10 +45,10 @@
 		color: #fff;
 		padding: 20px;
 		border-radius: 100px;
-		font-size: 19px;
-		font-family: 'ProximaNova-Bold';
-		width: 230px;
+		font-size: 20px;
+		width: 250px;
 		box-shadow: 0px 0px 15px 3px #ff8383;
+		font-family: 'ProximaNova-Bold';
 	}
 	.section-2{
 		height: 1050px;
@@ -56,7 +57,6 @@
 		height: 1500px;
 	}
 	.section-3 a{
-		font-family: 'ProximaNova-Bold';
 		letter-spacing: 1px;
 		word-spacing: 7px;
 		color: #f60001;
@@ -85,5 +85,64 @@
 	}
 	.section-5{
 		height: 1000px;
-
+		padding-right: 200px;
 	}
+	.section-5 .iphone{
+		position: relative;
+	}
+	.section-5 .iphone img{
+		width:300px;
+		cursor: pointer;
+	}
+	.section-5 .iphone iframe {
+    position: absolute;
+    top: 71px;
+    left: 15px;
+    width: 272px;
+    height: 468px;
+}
+	.section-5 .watch-demo{
+		margin-top: 20px;
+		cursor: pointer;
+	}
+	.section-5 .watch-demo a{
+		letter-spacing: 1px;
+		word-spacing: 7px;
+		color: #f60001;
+		text-decoration: none;
+	}
+	.section-5 .watch-demo img{
+		width: 40px;
+		margin-right: 15px;
+	}
+
+	.my-modal {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120vh;
+    background: rgba(0,0,0,.5);
+    justify-content: center;
+    -ms-align-items: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.my-modal-content {
+		display: table;
+		border-radius: 5px;
+    background: #fff;
+    margin: 0 auto;
+    margin-top: 200px;
+    z-index: 999999;
+    padding: 20px;
+}
+
+
+.my-modal-content .close span{
+	font-size: 28px;
+	color: #f60001;
+	cursor: pointer;
+}

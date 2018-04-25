@@ -59,34 +59,8 @@ menuItems = {
 		}]
 	},
 	"Что именно нужно делать, чтобы стать богатым?":{
-		link:'https://www.youtube.com/watch?v=yBn-BeALjqE',
-		quiz:[
-		{
-			question:"Что такое СSS?",
-			answer:"Каскадные таблицы стилей",
-			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
-		},
-		{
-			question:"Что такое СSS?",
-			answer:"Каскадные таблицы стилей",
-			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
-		},
-		{
-			question:"Что такое СSS?",
-			answer:"Каскадные таблицы стилей",
-			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
-		},
-		{
-			question:"Что такое СSS?",
-			answer:"Каскадные таблицы стилей",
-			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
-		},
-		{
-			question:"Что такое СSS?",
-			answer:"Каскадные таблицы стилей",
-			options:["alfjakfds;","kdlfjals;kdjflajdfl;akjd","kdfjal;sdjfl;asdjl;"]
-		},
-		]
+		link:'https://www.youtube.com/watch?v=ajavC3YfQEM',
+		quiz:[]
 	},
 
 },
@@ -114,7 +88,15 @@ function onPlayerReady(event) {
 }
 
 function onPlayerStateChange(event) {        
-	if(event.data === 0) {            
+	if(event.data === 0) {
+		if(currentIndex==menuItemsNames.length-1){
+			$modal.fadeIn(500)
+			$modal.find('h3').text('Поздравляем, Курс Пройден!')
+			$modal.find('.answer').html('Дорогой будущий инвестор! Спасибо за прохождение нашего онлайн курса по основам инвестирования, надеемся наши уроки помогли вам сделать первый шаг в этом направлении. Желаем успехов! <br><br> <b>Скачайте одно из наших приложений</b>')
+			$modal.find('.again-next').hide()
+			$modal.find('.apps').show()
+			return;
+		}            
 		$quiz.fadeIn(1500)
 		doneLessons.push(+currentIndex)
 		changeLessonToChecked()
@@ -178,13 +160,14 @@ $(document).ready(function() {
 	}
 
 	function loadLesson(index,loadVideo){
-		if(index==menuItemsNames.length){
-			$modal.find('h3').text('Поздравляем, Курс Пройден!')
-			$modal.find('.answer').html('Дорогой будущий инвестор! Спасибо за прохождение нашего онлайн курса по основам инвестирования, надеемся наши уроки помогли вам сделать первый шаг в этом направлении. Желаем удачи! <br><br> <b>Скачайте одно из наших приложений</b>')
-			$modal.find('.again-next').hide()
-			$modal.find('.apps').show()
-			return
-		}
+		// if(index==menuItemsNames.length){
+		// 	$modal.find('h3').text('Поздравляем, Курс Пройден!')
+		// 	$modal.find('.answer').html('Дорогой будущий инвестор! Спасибо за прохождение нашего онлайн курса по основам инвестирования, надеемся наши уроки помогли вам сделать первый шаг в этом направлении. Желаем удачи! <br><br> <b>Скачайте одно из наших приложений</b>')
+		// 	$modal.find('.again-next').hide()
+		// 	$modal.find('.apps').show()
+		// 	return
+		// }
+
 		$quiz.hide()
 		$modal.hide()
 		$modal.find('.again-next').show()
